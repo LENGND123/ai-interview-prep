@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../api";
+import KeyNotice from "../components/KeyNotice";
 
 const ROLES = ["Frontend engineer", "Backend engineer", "Full stack engineer", "Data analyst", "Product manager", "DevOps engineer"];
 const FOCUS = ["Data structures", "System design", "React", "APIs", "SQL", "Behavioral stories", "Testing", "Cloud"];
@@ -75,6 +76,8 @@ export default function NewInterview() {
           <h1>Tell DryRun who you are interviewing as.</h1>
         </div>
       </header>
+
+      <KeyNotice />
 
       <form className="setup-form" onSubmit={onSubmit}>
         <label>

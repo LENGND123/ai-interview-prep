@@ -22,7 +22,7 @@ The first launch downloads MongoDB 7 (about 600 MB) into `server/node_modules/.c
 
 Open http://localhost:5173. The API is http://localhost:5000.
 
-`npm test` runs the server checks for scoring, response shaping, and the hidden answer rubric.
+`npm test` runs the server checks, including a full session: signup, generated questions, scored answers, a saved summary, and history that stays private to that account.
 
 ## What it does
 

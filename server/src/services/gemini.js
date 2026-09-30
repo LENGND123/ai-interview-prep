@@ -199,3 +199,9 @@ nextSteps: exactly 3 short practice tasks for the next session.`,
   );
   return normalizeSummary(raw);
 }
+
+export const geminiApi = {
+  generateQuestions,
+  evaluateAnswer,
+  summarizeInterview,
+};

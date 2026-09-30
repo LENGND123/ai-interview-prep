@@ -30,7 +30,7 @@ export function createApp() {
   });
 
   app.get("/api/health", (req, res) => {
-    res.json({ ok: true });
+    res.json({ ok: true, gemini: Boolean(process.env.GEMINI_API_KEY) });
   });
   app.use("/api/auth", authLimiter, authRouter);
   app.use("/api/interviews", interviewRouter);

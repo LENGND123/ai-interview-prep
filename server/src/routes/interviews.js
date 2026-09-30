@@ -6,7 +6,7 @@ import { asyncHandler } from "../asyncHandler.js";
 import { requireAuth } from "../middleware/auth.js";
 import { answerSchema, createInterviewSchema, parseBody } from "../validators.js";
 import { averageScore, presentInterview, presentInterviewSummary, verdictFor } from "../present.js";
-import { evaluateAnswer, generateQuestions, summarizeInterview } from "../services/gemini.js";
+import { geminiApi } from "../services/gemini.js";
 import { httpError } from "../httpError.js";
 
 export const interviewRouter = express.Router();
@@ -34,7 +34,7 @@ interviewRouter.post(
   aiLimiter,
   asyncHandler(async (req, res) => {
     const input = parseBody(createInterviewSchema, req.body);
-    const generated = await generateQuestions(input);
+    const generated = await geminiApi.generateQuestions(input);
     const interview = await Interview.create({
       user: req.user._id,
       role: input.role,
@@ -84,7 +84,7 @@ interviewRouter.post(
     if (!question) throw httpError(404, "Question not found");
     if (question.evaluation) throw httpError(409, "That question is already answered");
 
-    const evaluation = await evaluateAnswer({
+    const evaluation = await geminiApi.evaluateAnswer({
       role: interview.role,
       company: interview.company,
       experienceLevel: interview.experienceLevel,
@@ -148,7 +148,7 @@ async function closeInterview(interview) {
   const score = averageScore(interview.questions);
   interview.overallScore = score;
   try {
-    const summary = await summarizeInterview({
+    const summary = await geminiApi.summarizeInterview({
       role: interview.role,
       company: interview.company,
       experienceLevel: interview.experienceLevel,

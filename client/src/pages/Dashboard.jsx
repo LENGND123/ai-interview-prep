@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { api } from "../api";
 import { useAuth } from "../auth";
+import KeyNotice from "../components/KeyNotice";
 
 function formatWhen(iso) {
   return new Date(iso).toLocaleString(undefined, {
@@ -60,6 +61,8 @@ export default function Dashboard() {
         </div>
         <Link to="/app/new" className="btn">New interview</Link>
       </header>
+
+      <KeyNotice />
 
       <div className="stats">
         <article>
